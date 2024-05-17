@@ -175,5 +175,3 @@ output/
 wheelhouse/
 vcpkg_installed/
 python/pyinterp/__version__.py
-
-vcpkg
