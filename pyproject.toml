@@ -1,0 +1,63 @@
+[build-system]
+requires = ["scikit-build-core>=0.3.3", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pyinterp"
+description = "A minimal example package with scikit build core and vcpkg"
+readme = "README.md"
+authors = [
+    { name = "Tom McLean",  email = "mcleantom97@gmail.com" }
+]
+dynamic = ["version"]
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+[tool.scikit-build]
+cmake.verbose = true
+logging.level = "DEBUG"
+cmake.args = [
+    "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake",
+    "-DVCPKG_INSTALLED_DIR=./vcpkg_installed",
+    "-DBUILD_PYTHON_EXTENSION=ON"
+]
+sdist.include = ["python/pyinterp/__version__.py"]
+
+
+[tool.scikit-build.metadata.version]
+provider = "scikit_build_core.metadata.regex"
+input = "python/pyinterp/__version__.py"
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+xfail_strict = true
+log_cli_level = "INFO"
+filterwarnings = [
+  "error",
+]
+testpaths = ["tests"]
+
+[tool.cibuildwheel]
+build = "cp*"
+skip = ["cp*-musllinux*", "pp*"]
+archs = ["x86_64", "AMD64", "arm64"]
+manylinux-x86_64-image = "pyinterp_manylinux2014"
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64"]
+before-all = "ln -s /src/vcpkg /project/vcpkg"
+
+[tool.cibuildwheel.windows]
+archs = ['AMD64']

@@ -1,0 +1,36 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "debug_windows",
+            "displayName": "Debug Windows",
+            "binaryDir": "${sourceDir}/build/debug",
+            "generator": "Visual Studio 17 2022",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "value": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                    "type": "FILEPATH"
+                },
+                "VCPKG_INSTALLED_DIR": "${sourceDir}/vcpkg_installed",
+                "DPython3_FIND_STRATEGY": "LOCATION"
+            }
+        },
+        {
+            "name": "release_windows",
+            "displayName": "Release Windows",
+            "binaryDir": "${sourceDir}/build/release",
+            "generator": "Visual Studio 17 2022",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "value": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                    "type": "FILEPATH"
+                },
+                "VCPKG_INSTALLED_DIR": "${sourceDir}/vcpkg_installed"
+            }
+        }
+    ]
+}

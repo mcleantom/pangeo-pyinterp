@@ -1,0 +1,16 @@
+FROM quay.io/pypa/manylinux2014_x86_64:latest
+
+ENV VCPKG_INSTALLED_DIR=/project/vcpkg
+
+RUN yum -y update && \
+    yum -y install curl zip unzip && \
+    yum install -y https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm && \
+    yum groupinstall -y "Development tools" && \
+    yum install -y centos-release-scl && \
+    yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+    yum install -y devtoolset-11 python3 perl-IPC-Cmd m4 && \
+    yum makecache && yum -y install lcov && \
+    yum -y install autoconf automake autoconf-archive
+
+RUN git clone https://github.com/microsoft/vcpkg.git /src/vcpkg && \
+    /src/vcpkg/bootstrap-vcpkg.sh

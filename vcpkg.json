@@ -1,0 +1,10 @@
+{
+    "name": "pyinterp2",
+    "dependencies": [
+        "eigen3",
+        "gsl",
+        "boost-geometry",
+        "boost-accumulators",
+        "pybind11"
+    ]
+}
